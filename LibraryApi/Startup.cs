@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using RabbitMqUtils;
 
 namespace LibraryApi
 {
@@ -38,12 +38,16 @@ namespace LibraryApi
             var mapperConfiguration = new MapperConfiguration(c =>
             {
                 c.AddProfile(new BookProfile());
+                c.AddProfile(new ReservationProfile());
                 // add additional profiles here...
             });
 
             IMapper mapper = mapperConfiguration.CreateMapper();
             services.AddSingleton<IMapper>(mapper);
             services.AddSingleton<MapperConfiguration>(mapperConfiguration);
+
+            services.AddRabbit(Configuration);
+            services.AddScoped<IProccessReservation, RabbitMqReservationProcessor>();
 
             services.AddDbContext<LibraryDataContext>(cfg =>
             {
