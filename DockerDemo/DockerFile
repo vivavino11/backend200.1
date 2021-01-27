@@ -1,0 +1,8 @@
+FROM ubuntu:14.04
+
+RUN apt-get update  && apt-get install -y cowsay fortunes && rm -rf /var/lib/apt/lists/*
+
+CMD /usr/games/fortune -a | /usr/games/cowsay
+
+CMD docker run  -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=TokyoJoe138!' -e 'MSSQL_PID=Express' --name SQL mcr.microsoft.com/mssql/server:2019-latest
+

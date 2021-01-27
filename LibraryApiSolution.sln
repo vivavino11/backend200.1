@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApi", "LibraryApi\Li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryApiIntegrationTests", "LibraryApiIntegrationTests\LibraryApiIntegrationTests.csproj", "{41A37299-DFEB-4896-8FB7-EF941E3E0576}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheClient", "CacheClient\CacheClient.csproj", "{81A00F49-6A69-4FCC-878F-58504D95A001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CacheClient", "CacheClient\CacheClient.csproj", "{81A00F49-6A69-4FCC-878F-58504D95A001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{66434F69-50AF-4709-A3C5-60FB7E06874B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
