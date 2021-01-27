@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LibraryApi.Models.Options;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,12 @@ namespace LibraryApi.Controllers
     public class CachingController : ControllerBase
     {
         private readonly ICatalog _catalog;
+        private readonly IOptions<MessagesOptions> _options;
 
-        public CachingController(ICatalog catalog)
+        public CachingController(ICatalog catalog, IOptions<MessagesOptions> options)
         {
             _catalog = catalog;
+            _options = options;
         }
 
         [HttpGet("caching/catalog")]
@@ -26,11 +30,12 @@ namespace LibraryApi.Controllers
         [ResponseCache(Duration = 15, Location = ResponseCacheLocation.Any)]
         public ActionResult GetSomeInfo()
         {
-            return Ok(new
-            {
-                Message = "Hello from the server",
-                CreatedAt = DateTime.Now
-            });
+            return Ok(
+                new
+                {
+                    Message = _options.Value.CacheMessage,
+                    CreatedAt = DateTime.Now
+                }); 
         }
     }
 }

@@ -37,18 +37,18 @@ namespace LibraryApi.Controllers
             var reservation = _mapper.Map<Reservation>(request);
 
 
-            reservation.Status = ReservationStatus.Pending;
-            await _reservationProcessor.ProcessReservation(reservation);
+            reservation.Status = ReservationStatus.Pending;            
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();
+            await _reservationProcessor.ProcessReservation(reservation);
 
             var response = _mapper.Map<GetReservationDetailsResponse>(reservation);
 
-            return CreatedAtRoute("reservations#getreservation", new { id = response.Id }, response);
+            return CreatedAtRoute("reservations#getareservation", new { id = response.Id }, response);
         }
 
         // GET /reservations/{id}
-        [HttpGet("/reservations/{id:int}", Name = "reservations#getreservation")]
+        [HttpGet("/reservations/{id:int}", Name = "reservations#getareservation")]
         public async Task<ActionResult<GetReservationDetailsResponse>> GetAReservation(int id)
         {
             var response = await _context.Reservations
@@ -74,7 +74,7 @@ namespace LibraryApi.Controllers
             return Accepted();
         }
 
-        [HttpPost("/reservation/rejected")]
+        [HttpPost("/reservations/rejected")]
         public async Task<ActionResult> ReservationRejected([FromBody] GetReservationDetailsResponse request)
         {
             var reservation = await _context.Reservations
